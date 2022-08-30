@@ -1,0 +1,11 @@
+<h2> Вывод данных:</h2> 
+<br/>           
+
+<% @result.each do |row| %>
+<p>
+	<%= row['content'] %>
+	<br/>
+	<%= row['created_date'] %>
+</p>
+</hr>
+<% end %>
