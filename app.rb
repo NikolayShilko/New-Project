@@ -9,3 +9,8 @@ end
 get '/Newpost' do
  erb :New
 end
+post '/New' do
+  @content=params[:content]
+
+erb "Вы ввели данные #{@content}"
+end
