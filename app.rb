@@ -36,4 +36,7 @@ if @content.length <=0            #обработчик ошибок
 	@error='Введите текст!'
 	return erb :New
 end
+#добавление данных из формы в базу данных c параметром datetime
+@db.execute 'insert into POSTS (content,created_date)values (?,datetime())',[@content]
+erb "You typed : #{@content}"
 end
