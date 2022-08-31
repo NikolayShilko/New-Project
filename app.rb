@@ -20,6 +20,13 @@ configure do                                          #создание табл
 	"created_date"	DATE,
 	"content"	TEXT,
 	PRIMARY KEY("id" AUTOINCREMENT)
+);'                                               #талица бд для сохранения комментариев
+@db.execute 'CREATE TABLE IF NOT EXISTS Comments(  
+	"id"	INTEGER,
+	"created_date"	DATE,
+	"content"	TEXT,
+	"post_id" INTEGER,
+	PRIMARY KEY("id" AUTOINCREMENT)
 );'
 	end
 get '/' do
@@ -43,9 +50,9 @@ redirect to '/'
 end
 
 #универсальный обработчик комментариев
-get '/detalis/:id' do
+get '/detalis/:post_id' do
 
-id= params[:id] 
+id= params[:post_id] 
 #вывод данных о посте в форме detalis-толькo один пост
 result=@db.execute 'select * from Posts where id=?',[id]
 @row=result[0]
@@ -53,12 +60,12 @@ result=@db.execute 'select * from Posts where id=?',[id]
 erb :detalis             
 end
 #обработчик запрсов из комментариев форма в /detalis
-post '/detalis/:id' do
+post '/detalis/:post_id' do
 #получаем переменную из Url
-id= params[:id] 
+post_id= params[:post_id] 
 #получаем переменную из пост запроса
 content= params[:content] 
 
-erb "Вы ввели комментарий #{content} для поста #{id}"
+erb "Вы ввели комментарий #{content} для поста #{post_id}"
 end
 
