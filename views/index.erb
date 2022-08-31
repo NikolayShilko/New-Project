@@ -1,11 +1,15 @@
 <h2> Вывод данных:</h2> 
 <br/>           
 
-<% @result.each do |row| %>
+<% @result.each do |post| %>
 <p>
-	<%= row['content'] %>
+	<!--Вывод данных из столбцов  в базе данных --> 
+	<%= post['content'] %>
 	<br/>
-	<%= row['created_date'] %>
+	Добавлен:<%= post['created_date'] %>
+	<br/>
+	<!--Добавление комментария в представлении-->
+	<a href= "/detalis/<%=post['id'] %>">comments</a>
 </p>
 </hr>
 <% end %>

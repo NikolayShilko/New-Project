@@ -24,7 +24,7 @@ configure do                                          #создание табл
 	end
 get '/' do
 	@result=@db.execute'select * from Posts order by id desc' #запись данных из бд в переменную для вывода
-	erb :index	
+	erb :index	                                               #сортировка по id (order by id desc)
 end
 get '/Newpost' do
  erb :New
@@ -39,5 +39,20 @@ if @content.length <=0            #обработчик ошибок
 end
 #добавление данных из формы в базу данных c параметром datetime
 @db.execute 'insert into POSTS (content,created_date)values (?,datetime())',[@content]
-erb "You typed : #{@content}"
+redirect to '/'
 end
+#erb "You typed : #{@content}"
+#универсальный обработчик комментариев
+get '/detalis/:id' do
+
+@id= params[:id] 
+
+erb "Номер поста:#{@id}"
+end
+
+#@result=@db.execute'select * from Posts where id=?',[row]
+#@x=@result[0]
+#erb "Вывод информации #{@content}"
+
+
+
