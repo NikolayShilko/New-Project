@@ -30,31 +30,35 @@ get '/Newpost' do
  erb :New
 end
 post '/New' do                     #обработчик post запроса.
-  @content=params[:content]        #получение переменнной из post запроса
+  content=params[:content]        #получение переменнной из post запроса
 
-erb "Вы ввели данные #{@content}"
-if @content.length <=0            #обработчик ошибок 
+erb "Вы ввели данные #{content}"
+if content.length <=0            #обработчик ошибок 
 	@error='Введите текст!'
 	return erb :New
 end
 #добавление данных из формы в базу данных c параметром datetime
-@db.execute 'insert into POSTS (content,created_date)values (?,datetime())',[@content]
+@db.execute 'insert into POSTS (content,created_date)values (?,datetime())',[content]
 redirect to '/'
 end
-#erb "You typed : #{@content}"
+
 #универсальный обработчик комментариев
 get '/detalis/:id' do
 
 id= params[:id] 
+#вывод данных о посте в форме detalis-толькo один пост
 result=@db.execute 'select * from Posts where id=?',[id]
 @row=result[0]
 
-erb :detalis             #"Номер поста:#{id}"
+erb :detalis             
 end
+#обработчик запрсов из комментариев форма в /detalis
+post '/detalis/:id' do
+#получаем переменную из Url
+id= params[:id] 
+#получаем переменную из пост запроса
+content= params[:content] 
 
-
-#@x=@result[0]
-#erb "Вывод информации #{@content}"
-
-
+erb "Вы ввели комментарий #{content} для поста #{id}"
+end
 

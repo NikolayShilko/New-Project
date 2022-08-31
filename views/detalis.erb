@@ -5,6 +5,16 @@
 	<br/>
 	Добавлен:<%= @row['created_date'] %>
 	<br/>
-	<!--Добавление комментария в представлении-->
+	<h4>Комментарии</h4>
+	<!--добавлена динамическая смена id <%=@row['id']
+%>-->	
+<form action="/detalis/<%= @row['id'] %> "method="Post">
+   <div class="form-floating">
+    <textarea name="content" class="form-control" placeholder="Введите текст комментария" id="floatingTextarea2" style="height: 100px"></textarea>
+     <label for="floatingTextarea2"></label></div>
+
+      <button type="submit" class="btn btn-primary">Ваш комментарий</button>
+</form>
+	
 	
 </p>
