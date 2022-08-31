@@ -45,12 +45,14 @@ end
 #универсальный обработчик комментариев
 get '/detalis/:id' do
 
-@id= params[:id] 
+id= params[:id] 
+result=@db.execute 'select * from Posts where id=?',[id]
+@row=result[0]
 
-erb "Номер поста:#{@id}"
+erb :detalis             #"Номер поста:#{id}"
 end
 
-#@result=@db.execute'select * from Posts where id=?',[row]
+
 #@x=@result[0]
 #erb "Вывод информации #{@content}"
 
